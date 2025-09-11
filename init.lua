@@ -5,6 +5,7 @@ require 'core.bootstrap'
 require 'core.options'
 require 'core.keymaps'
 require 'core.autocmds'
+require('core.shared-session').setup()
 
 -- Load plugins via lazy.nvim
 require('lazy').setup('plugins.spec', {

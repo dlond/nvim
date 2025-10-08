@@ -130,8 +130,8 @@ function M.get_servers()
     -- JSON Language Server
     jsonls = {},
 
-    -- Markdown Language Server
-    marksman = {},
+    -- Markdown Language Server (Rust-based, avoids .NET build issues)
+    markdown_oxide = {},
 
     -- TOML Language Server
     taplo = {},

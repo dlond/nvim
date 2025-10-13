@@ -19,9 +19,30 @@ local function is_shared_session()
   return false
 end
 
+-- Check if any buffers have unsaved changes
+local function has_unsaved_changes()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modified then
+      return true
+    end
+  end
+  return false
+end
+
 -- Create wrapper commands that check before quitting
 local function create_quit_command(cmd_name, vim_cmd)
   vim.api.nvim_create_user_command(cmd_name, function(opts)
+    local cmd = vim_cmd .. (opts.bang and '!' or '')
+    
+    -- For non-bang quit commands, check for unsaved changes first
+    if not opts.bang and vim_cmd:match('^q') and has_unsaved_changes() then
+      -- Let Vim handle this naturally by just running the command
+      -- It will show the proper E37 error
+      vim.cmd(cmd)
+      return
+    end
+    
+    -- Only check shared session if the quit would succeed
     if is_shared_session() then
       local response = vim.fn.input '⚠️  Closing shared nvim session! Confirm with y/Y: '
       if response:lower() ~= 'y' then
@@ -29,46 +50,48 @@ local function create_quit_command(cmd_name, vim_cmd)
         return
       end
     end
-    local cmd = vim_cmd .. (opts.bang and '!' or '')
+    
+    -- Execute the command
     vim.cmd(cmd)
   end, { bang = true })
 end
 
 function M.setup()
-  -- Override the common quit commands
+  -- Only hook into explicit session-ending commands
+  -- Don't override basic :q since that's often used to close windows
+  
+  -- Override only the "quit all" commands
   vim.cmd [[
-    cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>
     cabbrev qa <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Qa' : 'qa')<CR>
-    cabbrev wq <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Wq' : 'wq')<CR>
-    cabbrev x <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'X' : 'x')<CR>
+    cabbrev qall <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Qa' : 'qall')<CR>
   ]]
-
-  -- Create the wrapper commands
-  create_quit_command('Q', 'q')
+  
   create_quit_command('Qa', 'qa')
-  create_quit_command('Wq', 'wq')
-  create_quit_command('X', 'x')
-
-  -- Override ZZ and ZQ keymaps
+  
+  -- Override ZZ (save and quit) - this always ends the session
   vim.keymap.set('n', 'ZZ', function()
+    -- ZZ saves then quits, so just check session
     if is_shared_session() then
-      local response = vim.fn.input '⚠️  Closing shared nvim session! Confirm with y/Y: '
+      local response = vim.fn.input '⚠️  ZZ will close shared nvim session! Confirm with y/Y: '
       if response:lower() ~= 'y' then
         print '\nQuit cancelled'
         return
       end
     end
+    -- Execute normal ZZ behavior
     vim.cmd 'wq'
   end, { desc = 'Save and quit with shared session check' })
 
+  -- Override ZQ (force quit) - this always ends the session
   vim.keymap.set('n', 'ZQ', function()
     if is_shared_session() then
-      local response = vim.fn.input '⚠️  Closing shared nvim session! Confirm with y/Y: '
+      local response = vim.fn.input '⚠️  ZQ will close shared nvim session! Confirm with y/Y: '
       if response:lower() ~= 'y' then
         print '\nQuit cancelled'
         return
       end
     end
+    -- Execute normal ZQ behavior
     vim.cmd 'q!'
   end, { desc = 'Quit without saving with shared session check' })
 end

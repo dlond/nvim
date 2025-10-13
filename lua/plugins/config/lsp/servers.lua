@@ -69,6 +69,14 @@ function M.get_servers()
             diagnosticMode = 'openFilesOnly',
             typeCheckingMode = 'basic',
             useLibraryCodeForTypes = true,
+            autoImportCompletions = true,
+            
+            -- Help with type hints
+            inlayHints = {
+              variableTypes = true,
+              functionReturnTypes = true,
+              parameterTypes = true,
+            },
 
             diagnosticSeverityOverrides = {
               reportOptionalCall = 'none',
@@ -76,13 +84,21 @@ function M.get_servers()
               reportOptionalMemberAccess = 'none',
               reportOptionalIterable = 'none',
               reportAttributeAccessIssue = 'none',
-              reportUnknownMemberType = 'none',
-              reportUnknownVariableType = 'none',
-              reportUnknownArgumentType = 'none',
-              reportUnknownParameterType = 'none',
-              reportUnknownAssignmentType = 'none',
-              reportMissingTypeStubs = 'none',
+              reportUnknownMemberType = 'none',  -- Changed to none for less noise
+              reportUnknownVariableType = 'none',  -- Changed to none  
+              reportUnknownArgumentType = 'none',  -- Added
+              reportGeneralTypeIssues = 'none',  -- Added
+              reportUnknownParameterType = 'none',  -- Added
+              reportUnknownAssignmentType = 'none',  -- From main
+              reportMissingTypeStubs = 'none',  -- From main
             },
+          },
+        },
+        python = {
+          analysis = {
+            autoImportCompletions = true,
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
           },
         },
       },

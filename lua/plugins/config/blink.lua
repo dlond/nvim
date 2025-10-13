@@ -85,7 +85,7 @@ function M.setup()
         },
       },
       ghost_text = {
-        enabled = true,
+        enabled = false,  -- Disabled: was showing unwanted text on Tab
       },
     },
     

@@ -1,0 +1,47 @@
+local M = {}
+
+function M.setup()
+  local image = require 'image'
+  image:setup {
+    backend = 'kitty',
+    processor = 'magick_cli',
+    integrations = {
+      markdown = {
+        enabled = true,
+        clear_in_insert_mode = false,
+        download_remote_images = true,
+        only_render_image_at_cursor = false,
+        only_render_image_at_curser_mode = 'popup',
+        floating_windows = false,
+        filetypes = { 'markdown', 'vimwiki' },
+      },
+      neog = {
+        enabled = true,
+        filetypes = { 'norg' },
+      },
+      typst = {
+        enabled = true,
+        filetypes = { 'typst' },
+      },
+      html = {
+        enabled = false,
+      },
+      css = {
+        enabled = false,
+      },
+    },
+    max_width = 100,
+    max_height = 12,
+    max_width_window_percentage = math.huge,
+    max_height_window_percentage = math.huge,
+    scale_factor = 1.0,
+    window_overlap_clear_enabled = true,
+    -- window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', 'snacks_notif', 'scrollview', 'scrollview_sign' },
+    window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
+    editor_only_render_when_focused = false,
+    tmux_show_only_in_active_window = false,
+    hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.avif' },
+  }
+end
+
+return M

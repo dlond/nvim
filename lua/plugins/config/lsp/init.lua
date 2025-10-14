@@ -21,7 +21,7 @@ function M.setup()
   -- Setup each server with capabilities
   for name, config in pairs(servers) do
     config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
-    lspconfig[name].setup(config)
+    vim.lsp.config(name, config)
   end
 
   -- Setup LSP keymaps

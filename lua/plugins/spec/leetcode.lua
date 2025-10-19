@@ -10,4 +10,7 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   lazy = false,
+  config = function()
+    require('plugins.config.leetcode').setup()
+  end,
 }

@@ -4,9 +4,6 @@
 -- Clear search highlights with Escape in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
 -- Exit terminal mode with double Escape
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
@@ -46,9 +43,6 @@ vim.keymap.set('n', '<leader>bn', '<cmd>enew<CR>', { desc = '[B]uffer [N]ew' })
 for i = 1, 9 do
   vim.keymap.set('n', '<leader>' .. i, '<cmd>buffer ' .. i .. '<CR>', { desc = 'Switch to buffer ' .. i })
 end
-
--- Alternate file (toggle between two most recent files)
-vim.keymap.set('n', '<leader><leader>', '<C-^>', { desc = 'Toggle alternate file' })
 
 -- Window management keymaps
 vim.keymap.set('n', '<leader>ws', '<cmd>split<CR>', { desc = '[W]indow [S]plit horizontal' })

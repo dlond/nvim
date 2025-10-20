@@ -11,24 +11,23 @@ return {
     -- keys = { ... } -- Optional: Define keys if needed
     opts = {
       formatters_by_ft = {
+        -- Core languages
         lua = { 'stylua' },
         c = { 'clang_format' },
         cpp = { 'clang_format' },
         python = { 'ruff_organize_imports', 'ruff_format', 'ruff_fix' },
-        nix = { 'alejandra' }, -- Add nix formatter
-        -- Add other filetypes and formatters, e.g.:
-        javascript = { 'prettier' },
-        typescript = { 'prettier' },
-        css = { 'prettier' },
-        html = { 'prettier' },
+        nix = { 'alejandra' },
+        ocaml = { 'ocamlformat' },
+
+        -- Shell scripts
+        bash = { 'shfmt' },
+        sh = { 'shfmt' },
+
+        -- Build/config files
+        cmake = { 'cmake_format' },
         json = { 'prettier' },
         yaml = { 'prettier' },
         markdown = { 'prettier' },
-        bash = { 'shfmt' },
-        sh = { 'shfmt' },
-        cmake = { 'cmake_format' },
-        sql = { 'sqlfluff' },
-        ocaml = { 'ocamlformat' },
       },
       -- Configure format_on_save behavior
       format_on_save = {

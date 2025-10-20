@@ -27,23 +27,12 @@ function M.setup()
       
       -- Documentation
       map('K', vim.lsp.buf.hover, 'Hover Documentation')
-      
+      map('<C-k>', vim.lsp.buf.signature_help, 'Signature help')
+
       -- Formatting
       map('<leader>f', function()
         vim.lsp.buf.format { async = true }
       end, '[F]ormat buffer')
-      
-      -- The following keymaps are available but not mapped by default:
-      -- vim.lsp.buf.signature_help - Show function signature help
-      -- vim.lsp.buf.add_workspace_folder - Add workspace folder
-      -- vim.lsp.buf.remove_workspace_folder - Remove workspace folder
-      -- vim.lsp.buf.list_workspace_folders - List workspace folders
-      
-      -- Optional: Add a message when LSP attaches
-      local client = vim.lsp.get_client_by_id(event.data.client_id)
-      if client then
-        vim.notify('LSP attached: ' .. client.name, vim.log.levels.INFO)
-      end
     end,
   })
   

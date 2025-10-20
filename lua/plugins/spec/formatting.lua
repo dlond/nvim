@@ -31,9 +31,8 @@ return {
       },
       -- Configure format_on_save behavior
       format_on_save = {
-        -- I recommend these options, but adjust to your liking
-        timeout_ms = 2000, -- Stop formatting if it takes too long (increased for ocamlformat)
-        lsp_fallback = true, -- Fallback to LSP formatting if conform fails
+        timeout_ms = 2000, -- Increased for ocamlformat (can be slow)
+        lsp_fallback = true, -- Use LSP formatting if conform formatter unavailable
       },
     },
   },

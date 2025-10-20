@@ -28,11 +28,12 @@ return {
         sh = { 'shfmt' },
         cmake = { 'cmake_format' },
         sql = { 'sqlfluff' },
+        ocaml = { 'ocamlformat' },
       },
       -- Configure format_on_save behavior
       format_on_save = {
         -- I recommend these options, but adjust to your liking
-        timeout_ms = 500, -- Stop formatting if it takes too long
+        timeout_ms = 2000, -- Stop formatting if it takes too long (increased for ocamlformat)
         lsp_fallback = true, -- Fallback to LSP formatting if conform fails
       },
     },

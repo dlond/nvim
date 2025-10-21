@@ -4,8 +4,9 @@ local ocaml_files = { 'ocaml', 'ocaml.menhir', 'ocaml.interface', 'ocaml.ocamlle
 return {
   -- OCaml syntax highlighting and indentation
   {
-    ft = ocaml_files,
     'ocaml/vim-ocaml',
+    lazy = false,  -- Load immediately for filetype detection
+    priority = 1000,  -- Load very early
     config = function()
       require('plugins.config.ocaml').setup()
     end,

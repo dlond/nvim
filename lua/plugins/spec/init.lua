@@ -22,9 +22,9 @@ return {
   { import = 'plugins.spec.debug' },
   { import = 'plugins.spec.formatting' },
   { import = 'plugins.spec.leetcode' },
+  { import = 'plugins.spec.training' },
 
   -- Navigation
   { import = 'plugins.spec.nvim-tmux-navigator' },
   { import = 'plugins.spec.harpoon' },
 }
-

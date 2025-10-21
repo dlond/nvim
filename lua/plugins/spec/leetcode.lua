@@ -9,8 +9,9 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'nvim-tree/nvim-web-devicons',
   },
-  lazy = false,
+  cmd = { 'Leet' },
   config = function()
     require('plugins.config.leetcode').setup()
   end,
 }
+

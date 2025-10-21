@@ -22,6 +22,7 @@ function M.setup()
   for name, config in pairs(servers) do
     config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
     vim.lsp.config(name, config)
+    vim.lsp.enable(name)  -- Actually start the server!
   end
 
   -- Setup LSP keymaps

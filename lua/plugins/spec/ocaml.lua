@@ -1,6 +1,6 @@
 -- OCaml development environment for Jane Street prep
 return {
-  local ocaml_files = { 'ocaml', 'ocaml.menhir', 'ocaml.interface', 'ocaml.ocamllex', 'reason', 'dune' },
+  local ocaml_files = { 'ocaml', 'ocaml.menhir', 'ocaml.interface', 'ocaml.ocamllex', 'reason', 'dune' }
 
   -- OCaml syntax highlighting and indentation
   {

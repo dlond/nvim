@@ -7,8 +7,16 @@ return {
   {
     'stevearc/conform.nvim',
     event = 'BufWritePre', -- Format on save
-    -- cmd = { 'ConformInfo' }, -- Optional: If you want the command available
-    -- keys = { ... } -- Optional: Define keys if needed
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>f',
+        function()
+          return require('conform').format { async = true, lsp_fallback = true }
+        end,
+        desc = '[F]ormat buffer',
+      },
+    },
     opts = {
       formatters_by_ft = {
         -- Core languages

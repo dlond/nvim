@@ -5,25 +5,57 @@ function M.setup()
   require('blink.cmp').setup {
     -- Keymap configuration
     keymap = {
-      preset = 'default',
+      preset = 'none',
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-      ['<C-e>'] = { 'hide' },
-      ['<C-y>'] = { 'select_and_accept' },
+      ['<C-e>'] = { 'hide', 'fallback' },
+      ['<C-y>'] = { 'select_and_accept', 'fallback' },
 
-      ['<C-p>'] = { 'select_prev', 'fallback' },
-      ['<C-n>'] = { 'select_next', 'fallback' },
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' },
+      ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+      ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
 
       ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
 
       ['<Tab>'] = { 'snippet_forward', 'fallback' },
       ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+
+      ['<M-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
     },
 
     -- Appearance configuration
     appearance = {
-      use_nvim_cmp_as_default = true,
+      -- use_nvim_cmp_as_default = true,
       nerd_font_variant = 'mono',
+      kind_icons = {
+        Copilot = '',
+        Text = '',
+        Method = 'ƒ',
+        Function = 'ƒ',
+        Constructor = '',
+        Field = '',
+        Variable = '',
+        Property = '',
+        Class = '',
+        Interface = '',
+        Struct = '',
+        Module = '',
+        Unit = '',
+        Value = '',
+        Enum = '',
+        EnumMember = '',
+        Keyword = '',
+        Constant = '',
+        Snippet = ' ',
+        Color = '',
+        File = '',
+        Reference = '',
+        Folder = '',
+        Event = '',
+        Operator = '',
+        TypeParameter = '',
+      },
     },
 
     -- Sources configuration with Copilot integration
@@ -33,12 +65,14 @@ function M.setup()
         copilot = {
           name = 'copilot',
           module = 'blink-cmp-copilot',
-          score_offset = 100,
+          score_offset = -5,
           async = true,
           transform_items = function(_, items)
-            -- Add copilot icon to copilot suggestions
+            local CompletionItemKind = require('blink.cmp.types').CompletionItemKind
+            local kind_idx = #CompletionItemKind + 1
+            CompletionItemKind[kind_idx] = 'Copilot'
             for _, item in ipairs(items) do
-              item.kind = 'Copilot'
+              item.kind = kind_idx
             end
             return items
           end,
@@ -48,7 +82,7 @@ function M.setup()
 
     -- Command line configuration (new API)
     cmdline = {
-      enabled = true, -- Disable cmdline completion for now
+      enabled = true,
     },
 
     -- Signature help configuration
@@ -61,6 +95,7 @@ function M.setup()
 
     -- Completion configuration
     completion = {
+      keyword = { range = 'full' },
       accept = {
         -- Auto-insert brackets for functions
         auto_brackets = {
@@ -79,7 +114,7 @@ function M.setup()
       },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 200,
+        auto_show_delay_ms = 500,
         window = {
           border = 'rounded',
         },
@@ -124,4 +159,3 @@ function M.setup()
 end
 
 return M
-

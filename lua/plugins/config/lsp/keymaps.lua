@@ -13,21 +13,21 @@ function M.setup()
       end
 
       -- Navigation keymaps (using kickstart.nvim patterns)
-      map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-      map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-      map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-      map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype definition')
-      map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-      
+      map('<leader>cd', require('telescope.builtin').lsp_definitions, '[C]ode [D]efinition')
+      map('<leader>cr', require('telescope.builtin').lsp_references, '[C]ode [R]eferences')
+      map('<leader>ci', require('telescope.builtin').lsp_implementations, '[C]ode [I]mplementation')
+      map('<leader>ct', require('telescope.builtin').lsp_type_definitions, '[C]ode [T]ype definition')
+      map('<leader>cD', vim.lsp.buf.declaration, '[C]ode [D]eclaration')
+
       -- Symbol operations
-      map('grn', vim.lsp.buf.rename, '[G]oto [R]e[n]ame')
-      map('gra', vim.lsp.buf.code_action, '[G]oto code [A]ction', { 'n', 'x' })
-      map('gO', require('telescope.builtin').lsp_document_symbols, '[G]oto [O]pen document symbols')
-      map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[G]oto [W]orkspace symbols')
-      
+      map('<leader>c', vim.lsp.buf.rename, '[C]ode Re[n]ame')
+      map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+      map('<leader>cs', require('telescope.builtin').lsp_document_symbols, '[C]ode [S]ymbols')
+      map('<leader>cS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[C]ode workspace [S]ymbols')
+
       -- Documentation
       map('K', vim.lsp.buf.hover, 'Hover Documentation')
-      map('<C-k>', vim.lsp.buf.signature_help, 'Signature help')
+      map('<M-k>', vim.lsp.buf.signature_help, 'Signature help')
 
       -- Formatting
       map('<leader>f', function()
@@ -35,7 +35,7 @@ function M.setup()
       end, '[F]ormat buffer')
     end,
   })
-  
+
   -- Diagnostic keymaps (available globally, not just when LSP attaches)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })

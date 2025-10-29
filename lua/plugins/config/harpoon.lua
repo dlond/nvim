@@ -13,32 +13,15 @@ function M.setup()
   }
 
   -- Add current file to list
-  vim.keymap.set('n', '<leader>ma', function()
+  vim.keymap.set('n', '<M-a>', function()
     harpoon:list():add()
     vim.notify('Added to Harpoon', vim.log.levels.INFO)
-  end, { desc = '[M]ark [A]dd file (Harpoon)' })
+  end, { desc = 'Harpoon [A]dd file' })
 
   -- Toggle quick menu
-  vim.keymap.set('n', '<C-e>', function()
+  vim.keymap.set('n', '<M-e>', function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
   end, { desc = 'Toggle Harpoon menu' })
-
-  -- Quick navigation to files 1-4 using leader+m prefix
-  vim.keymap.set('n', '<leader>m1', function()
-    harpoon:list():select(1)
-  end, { desc = 'Jump to mark 1' })
-
-  vim.keymap.set('n', '<leader>m2', function()
-    harpoon:list():select(2)
-  end, { desc = 'Jump to mark 2' })
-
-  vim.keymap.set('n', '<leader>m3', function()
-    harpoon:list():select(3)
-  end, { desc = 'Jump to mark 3' })
-
-  vim.keymap.set('n', '<leader>m4', function()
-    harpoon:list():select(4)
-  end, { desc = 'Jump to mark 4' })
 
   -- Alternative quick access with Alt/Option key (doesn't conflict)
   vim.keymap.set('n', '<M-1>', function()
@@ -60,11 +43,11 @@ function M.setup()
   -- Navigate between harpoon files
   vim.keymap.set('n', '[m', function()
     harpoon:list():prev()
-  end, { desc = 'Previous marked file' })
+  end, { desc = 'Harpoon previous file' })
 
   vim.keymap.set('n', ']m', function()
     harpoon:list():next()
-  end, { desc = 'Next marked file' })
+  end, { desc = 'Harpoon next file' })
 
   -- Show harpoon files in Telescope
   local conf = require('telescope.config').values
@@ -86,21 +69,22 @@ function M.setup()
       :find()
   end
 
-  vim.keymap.set('n', '<leader>mm', function()
+  vim.keymap.set('n', '<M-t>', function()
     toggle_telescope(harpoon:list())
-  end, { desc = '[M]arked files in Telescope' })
+  end, { desc = 'Harpoon [T]elescope' })
 
   -- Clear all marks
-  vim.keymap.set('n', '<leader>mc', function()
+  vim.keymap.set('n', '<M-c>', function()
     harpoon:list():clear()
     vim.notify('Cleared all Harpoon marks', vim.log.levels.INFO)
-  end, { desc = '[M]arks [C]lear all' })
+  end, { desc = 'Harpoon [C]lear all' })
 
   -- Remove current file from harpoon
-  vim.keymap.set('n', '<leader>mr', function()
+  vim.keymap.set('n', '<M-r>', function()
     harpoon:list():remove()
     vim.notify('Removed from Harpoon', vim.log.levels.INFO)
-  end, { desc = '[M]ark [R]emove current file' })
+  end, { desc = 'Harpoon [R]emove file' })
 end
 
 return M
+

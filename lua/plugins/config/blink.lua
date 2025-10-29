@@ -2,30 +2,30 @@
 local M = {}
 
 function M.setup()
-  require('blink.cmp').setup({
+  require('blink.cmp').setup {
     -- Keymap configuration
     keymap = {
       preset = 'default',
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide' },
       ['<C-y>'] = { 'select_and_accept' },
-      
+
       ['<C-p>'] = { 'select_prev', 'fallback' },
       ['<C-n>'] = { 'select_next', 'fallback' },
-      
+
       ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-      
+
       ['<Tab>'] = { 'snippet_forward', 'fallback' },
       ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
     },
-    
+
     -- Appearance configuration
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = 'mono',
     },
-    
+
     -- Sources configuration with Copilot integration
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
@@ -45,12 +45,12 @@ function M.setup()
         },
       },
     },
-    
+
     -- Command line configuration (new API)
     cmdline = {
-      enabled = false, -- Disable cmdline completion for now
+      enabled = true, -- Disable cmdline completion for now
     },
-    
+
     -- Signature help configuration
     signature = {
       enabled = true,
@@ -58,7 +58,7 @@ function M.setup()
         border = 'rounded',
       },
     },
-    
+
     -- Completion configuration
     completion = {
       accept = {
@@ -71,7 +71,7 @@ function M.setup()
         draw = {
           columns = {
             { 'label', 'label_description', gap = 1 },
-            { 'kind_icon', 'kind' }
+            { 'kind_icon', 'kind' },
           },
         },
         border = 'rounded',
@@ -85,10 +85,10 @@ function M.setup()
         },
       },
       ghost_text = {
-        enabled = false,  -- Disabled: was showing unwanted text on Tab
+        enabled = false, -- Disabled: was showing unwanted text on Tab
       },
     },
-    
+
     -- Fuzzy matching configuration
     fuzzy = {
       -- Use Rust implementation for better performance
@@ -106,7 +106,7 @@ function M.setup()
         download = true,
       },
     },
-    
+
     -- Snippet configuration
     snippets = {
       expand = function(snippet)
@@ -120,7 +120,8 @@ function M.setup()
         end
       end,
     },
-  })
+  }
 end
 
 return M
+

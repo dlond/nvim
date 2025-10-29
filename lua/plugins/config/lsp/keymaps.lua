@@ -12,7 +12,7 @@ function M.setup()
         vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
       end
 
-      -- Navigation keymaps (using kickstart.nvim patterns)
+      -- Navigation keymaps
       map('<leader>cd', require('telescope.builtin').lsp_definitions, '[C]ode [D]efinition')
       map('<leader>cr', require('telescope.builtin').lsp_references, '[C]ode [R]eferences')
       map('<leader>ci', require('telescope.builtin').lsp_implementations, '[C]ode [I]mplementation')
@@ -20,7 +20,7 @@ function M.setup()
       map('<leader>cD', vim.lsp.buf.declaration, '[C]ode [D]eclaration')
 
       -- Symbol operations
-      map('<leader>c', vim.lsp.buf.rename, '[C]ode Re[n]ame')
+      map('<leader>cf', vim.lsp.buf.rename, '[C]ode Re[f]actor')
       map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
       map('<leader>cs', require('telescope.builtin').lsp_document_symbols, '[C]ode [S]ymbols')
       map('<leader>cS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[C]ode workspace [S]ymbols')
@@ -28,6 +28,9 @@ function M.setup()
       -- Documentation
       map('K', vim.lsp.buf.hover, 'Hover Documentation')
       map('<M-k>', vim.lsp.buf.signature_help, 'Signature help')
+      map('<leader>ch', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end, '[C]ode [H]int toggle')
 
       -- Formatting
       map('<leader>f', function()

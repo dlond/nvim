@@ -2,10 +2,10 @@
 local M = {}
 
 function M.setup()
-  local telescope = require('telescope')
-  local builtin = require('telescope.builtin')
-  
-  telescope.setup({
+  local telescope = require 'telescope'
+  local builtin = require 'telescope.builtin'
+
+  telescope.setup {
     defaults = {
       prompt_prefix = '> ',
       selection_caret = '> ',
@@ -41,14 +41,14 @@ function M.setup()
         case_mode = 'smart_case',
       },
     },
-  })
-  
+  }
+
   -- Load extensions
   pcall(telescope.load_extension, 'fzf')
   pcall(telescope.load_extension, 'ui-select')
-  
+
   -- Setup keymaps
-  vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+  vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[S]earch files' })
   vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
   vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
   vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -65,7 +65,7 @@ function M.setup()
       previewer = false,
     })
   end, { desc = '[/] Fuzzily search in current buffer' })
-  
+
   -- Search in open files
   vim.keymap.set('n', '<leader>s/', function()
     builtin.live_grep {
@@ -73,15 +73,15 @@ function M.setup()
       prompt_title = 'Live Grep in Open Files',
     }
   end, { desc = '[S]earch [/] in Open Files' })
-  
+
   -- Search in neovim config
   vim.keymap.set('n', '<leader>sn', function()
     builtin.find_files { cwd = vim.fn.stdpath 'config' }
   end, { desc = '[S]earch [N]eovim files' })
-  
+
   -- C/C++ compile_commands.json picker
-  vim.keymap.set('n', '<leader>sc', '<cmd>CompileCommandsPicker<cr>', 
-    { desc = '[S]earch [C]ompile commands.json' })
+  vim.keymap.set('n', '<leader>sc', '<cmd>CompileCommandsPicker<cr>', { desc = '[S]earch [C]ompile commands.json' })
 end
 
 return M
+

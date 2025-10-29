@@ -27,15 +27,10 @@ function M.setup()
 
       -- Documentation
       map('K', vim.lsp.buf.hover, 'Hover Documentation')
-      map('<M-k>', vim.lsp.buf.signature_help, 'Signature help')
+      -- map('<M-k>', vim.lsp.buf.signature_help, 'Signature help')
       map('<leader>ch', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end, '[C]ode [H]int toggle')
-
-      -- Formatting
-      map('<leader>f', function()
-        vim.lsp.buf.format { async = true }
-      end, '[F]ormat buffer')
     end,
   })
 

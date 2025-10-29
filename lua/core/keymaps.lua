@@ -37,8 +37,10 @@ vim.keymap.set('n', '<C-Down>', '<cmd>resize -2<CR>', { desc = 'Decrease window 
 vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
 vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
 
--- Editing
+-- Editing/Navigation
 vim.keymap.set('n', '<leader>S', ':%s/<C-r><C-w>/', { desc = '[S]ubstitute current word' })
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- Standard practice for Lua modules that don't need to return complex data
 return {}

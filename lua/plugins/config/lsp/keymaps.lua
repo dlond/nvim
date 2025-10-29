@@ -39,6 +39,27 @@ function M.setup()
     end,
   })
 
+  -- LSP reload function
+  local function reload_lsp()
+    local clients = vim.lsp.get_clients()
+    if #clients == 0 then
+      print 'No LSP clients running'
+      return
+    end
+
+    for _, client in ipairs(clients) do
+      vim.lsp.stop_client(client.id)
+    end
+
+    vim.defer_fn(function()
+      vim.cmd 'LspStart'
+      print 'LSP servers reloaded'
+    end, 500)
+  end
+
+  -- Reload LSP keybind
+  vim.keymap.set('n', '<leader>cR', reload_lsp, { desc = 'LSP: [C]ode [R]eload LSP servers' })
+
   -- Diagnostic keymaps (available globally, not just when LSP attaches)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })

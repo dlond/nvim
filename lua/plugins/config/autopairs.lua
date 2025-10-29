@@ -2,25 +2,40 @@
 local M = {}
 
 function M.setup()
-  require('nvim-autopairs').setup {
-    check_ts = true,
-    ts_config = {
-      lua = { 'string', 'source' },
-      javascript = { 'string', 'template_string' },
+  pcall(function()
+    require('vim._extui').enable {}
+  end)
+
+  require('blink.pairs').setup {
+    mappings = {
+      enabled = true,
+      cmdline = true,
+      disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
     },
-    disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
-    fast_wrap = {
-      map = '<M-w>',
-      chars = { '{', '[', '(', '"', "'" },
-      pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], '%s+', ''),
-      offset = 0,
-      end_key = '$',
-      keys = 'qwertyuiopzxcvbnmasdfghjkl',
-      check_comma = true,
-      highlight = 'Search',
-      highlight_grey = 'Comment',
+    highlights = {
+      enabled = true,
+      cmdline = true,
+      groups = {
+        'BlinkPairsOrange',
+        'BlinkPairsPurple',
+        'BlinkPairsBlue',
+      },
+      unmatched_group = 'BlinkPairsUnmatched',
+
+      -- highlights matching pairs under the cursor
+      matchparen = {
+        enabled = true,
+        -- known issue where typing won't update matchparen highlight, disabled by default
+        cmdline = false,
+        -- also include pairs not on top of the cursor, but surrounding the cursor
+        include_surrounding = false,
+        group = 'BlinkPairsMatchParen',
+        priority = 250,
+      },
     },
+    debug = false,
   }
+
   -- UNIFIED KEY TO KILL AUTO-INSERTED STUFF
   -- <C-u> already kills auto-inserted comments (built-in)
   -- Let's add <C-u> to also kill auto-paired character

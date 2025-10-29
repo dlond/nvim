@@ -16,11 +16,9 @@ Thumbs.db
 *~
 
 # Plugin artifacts
-lazy-lock.json
 .luarc.json
 
 # Development artifacts
 .envrc
-*.disabled
 todo.md
 CLAUDE.md

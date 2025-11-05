@@ -18,9 +18,9 @@ return {
     },
     keymaps = {
       ['<C-h>'] = false,
-      ['<C-l>'] = false,
+      ['<C-j>'] = false,
       ['<C-k>'] = false,
-      ['<C-h>'] = false,
+      ['<C-l>'] = false,
     },
   },
 }

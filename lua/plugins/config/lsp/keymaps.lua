@@ -56,8 +56,12 @@ function M.setup()
   vim.keymap.set('n', '<leader>cR', reload_lsp, { desc = 'LSP: [C]ode [R]eload LSP servers' })
 
   -- Diagnostic keymaps (available globally, not just when LSP attaches)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+  vim.keymap.set('n', '[d', function()
+    vim.diagnostic.goto_prev { float = false }
+  end, { desc = 'Go to previous [D]iagnostic message' })
+  vim.keymap.set('n', ']d', function()
+    vim.diagnostic.goto_next { float = false }
+  end, { desc = 'Go to next [D]iagnostic message' })
   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 end

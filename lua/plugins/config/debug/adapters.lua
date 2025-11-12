@@ -5,10 +5,10 @@ local M = {}
 -- In Nix environments, use whatever Python is in PATH
 local function get_python_path()
   -- Use the Python from current environment (Nix or system)
-  if vim.fn.executable('python3') == 1 then
-    return vim.fn.exepath('python3')
-  elseif vim.fn.executable('python') == 1 then
-    return vim.fn.exepath('python')
+  if vim.fn.executable 'python3' == 1 then
+    return vim.fn.exepath 'python3'
+  elseif vim.fn.executable 'python' == 1 then
+    return vim.fn.exepath 'python'
   else
     -- Fallback to system Python
     return '/usr/bin/python3'
@@ -16,12 +16,12 @@ local function get_python_path()
 end
 
 function M.setup()
-  local dap = require('dap')
-  
+  local dap = require 'dap'
+
   -- Setup all language-specific adapters
   M.setup_python(dap)
   M.setup_cpp(dap)
-  
+
   -- Add more adapters as needed
   -- M.setup_rust(dap)
   -- M.setup_go(dap)
@@ -32,10 +32,10 @@ end
 function M.setup_python(dap)
   dap.adapters.python = {
     type = 'executable',
-    command = vim.fn.exepath('python3') ~= '' and vim.fn.exepath('python3') or 'python',
+    command = vim.fn.exepath 'python3' ~= '' and vim.fn.exepath 'python3' or 'python',
     args = { '-m', 'debugpy.adapter' },
   }
-  
+
   dap.configurations.python = {
     {
       type = 'python',
@@ -50,7 +50,7 @@ function M.setup_python(dap)
       name = 'Launch file with arguments',
       program = '${file}',
       args = function()
-        local args_string = vim.fn.input('Arguments: ')
+        local args_string = vim.fn.input 'Arguments: '
         return vim.split(args_string, ' ')
       end,
       pythonPath = get_python_path,
@@ -65,15 +65,22 @@ function M.setup_python(dap)
   }
 end
 
+local function suggest_build_dir()
+  local cwd = vim.fn.getcwd()
+  local build_dir = vim.fn.resolve(cwd .. '/compile_commands.json'):match '(.+)/compile_commands.json'
+  local suggestion = build_dir and build_dir or cwd
+  return suggestion .. '/'
+end
+
 -- C/C++/Rust debugger configuration (using lldb-dap)
 function M.setup_cpp(dap)
   -- LLDB-DAP adapter (modern LLDB with DAP support)
   dap.adapters.lldb = {
     type = 'executable',
-    command = 'lldb-dap', -- Will use lldb-dap from PATH (Nix environment)
+    command = 'lldb-dap',
     name = 'lldb',
   }
-  
+
   -- C++ configuration
   dap.configurations.cpp = {
     {
@@ -81,27 +88,30 @@ function M.setup_cpp(dap)
       type = 'lldb',
       request = 'launch',
       program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        local input = vim.fn.input('Path to executable: ', suggest_build_dir(), 'file')
+        return vim.fn.fnamemodify(input, ':p')
       end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,
       args = {},
       runInTerminal = false,
+      -- sourceInitFile = true,
     },
     {
       name = 'Launch with arguments',
       type = 'lldb',
       request = 'launch',
       program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        return vim.fn.input('Path to executable: ', suggest_build_dir(), 'file')
       end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,
       args = function()
-        local args_string = vim.fn.input('Arguments: ')
+        local args_string = vim.fn.input 'Arguments: '
         return vim.split(args_string, ' ')
       end,
       runInTerminal = false,
+      -- sourceInitFile = true,
     },
     {
       name = 'Attach to process',
@@ -111,7 +121,7 @@ function M.setup_cpp(dap)
       args = {},
     },
   }
-  
+
   -- Share C++ configuration with C and Rust
   dap.configurations.c = dap.configurations.cpp
   dap.configurations.rust = dap.configurations.cpp
@@ -127,7 +137,7 @@ end
 --       args = { 'dap', '-l', '127.0.0.1:${port}' },
 --     },
 --   }
---   
+--
 --   dap.configurations.go = {
 --     {
 --       type = 'delve',

@@ -12,21 +12,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Fix for netrw not properly detecting filetypes
--- This is a global issue that affects all filetypes when using :Ex
-vim.api.nvim_create_autocmd("BufReadPost", {
-  group = vim.api.nvim_create_augroup('netrw-filetype-fix', { clear = true }),
-  pattern = "*",
-  callback = function()
-    -- If filetype is empty after opening a file, force detection
-    -- This commonly happens when navigating through netrw
-    if vim.bo.filetype == "" then
-      vim.schedule(function()
-        if vim.bo.filetype == "" then
-          vim.cmd("filetype detect")
-        end
-      end)
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.server_capabilities.codeLensProvider then
+      vim.lsp.codelens.refresh()
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+        buffer = args.buf,
+        callback = vim.lsp.codelens.refresh,
+      })
     end
   end,
-  desc = "Fix netrw filetype detection for all files"
 })

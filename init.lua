@@ -7,6 +7,8 @@ require 'core.keymaps'
 require 'core.autocmds'
 require('core.shared-session').setup()
 
+vim.env.DEVELOPER_DIR = '/Applications/Xcode.app/Contents/Developer'
+
 -- Load plugins via lazy.nvim
 require('lazy').setup('plugins.spec', {
   change_detection = { enabled = true, notify = false },

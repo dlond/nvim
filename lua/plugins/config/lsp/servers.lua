@@ -124,6 +124,9 @@ function M.get_servers()
     ocamllsp = {
       filetypes = { 'ocaml', 'ocaml.menhir', 'ocaml.interface', 'ocaml.ocamllex', 'reason', 'dune' },
       root_markers = { '*.opam', 'esy.json', 'package.json', '.git', 'dune-project', 'dune-workspace' },
+      cmd_env = {
+        PATH = vim.env.PATH, -- Inherit PATH from Neovim's environment
+      },
       settings = {
         ocaml = {
           lens = {

@@ -74,10 +74,9 @@ end
 
 -- C/C++/Rust debugger configuration (using lldb-dap)
 function M.setup_cpp(dap)
-  -- LLDB-DAP adapter (modern LLDB with DAP support)
   dap.adapters.lldb = {
     type = 'executable',
-    command = 'lldb-dap',
+    command = vim.fn.exepath 'lldb-dap',
     name = 'lldb',
   }
 
@@ -88,8 +87,7 @@ function M.setup_cpp(dap)
       type = 'lldb',
       request = 'launch',
       program = function()
-        local input = vim.fn.input('Path to executable: ', suggest_build_dir(), 'file')
-        return vim.fn.fnamemodify(input, ':p')
+        return vim.fn.input('Path to executable: ', suggest_build_dir(), 'file')
       end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,

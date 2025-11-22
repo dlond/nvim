@@ -6,12 +6,7 @@ function M.setup()
   local dapui = require 'dapui'
 
   -- Start debugging
-  vim.keymap.set('n', '<F4>', function()
-    local ok, err = pcall(dap.run_last)
-    if not ok then
-      dap.continue()
-    end
-  end, { desc = 'Debug: Run Last' })
+  vim.keymap.set('n', '<F4>', dap.run_last, { desc = 'Debug: Run Last' })
 
   vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
 
@@ -63,4 +58,3 @@ function M.setup()
 end
 
 return M
-

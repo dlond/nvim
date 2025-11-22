@@ -10,6 +10,24 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- NOTE: Window navigation is handled by nvim-tmux-navigator plugin
 -- which provides seamless navigation between vim splits and tmux panes
 
+-- LSP reload function
+local function reload_lsp()
+  local clients = vim.lsp.get_clients()
+  if #clients == 0 then
+    print 'No LSP clients running'
+    return
+  end
+
+  for _, client in ipairs(clients) do
+    vim.lsp.stop_client(client.id)
+  end
+
+  vim.defer_fn(function()
+    vim.cmd 'LspStart'
+    print 'LSP servers reloaded'
+  end, 500)
+end
+
 -- Buffer management keymaps
 vim.keymap.set('n', '<leader>bb', '<cmd>Telescope buffers<CR>', { desc = '[B]rowse [B]uffers' })
 vim.keymap.set('n', '[b', '<cmd>bprevious<CR>', { desc = 'Previous buffer' })

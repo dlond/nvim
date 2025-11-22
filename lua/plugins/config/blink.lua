@@ -5,23 +5,19 @@ function M.setup()
   require('blink.cmp').setup {
     -- Keymap configuration
     keymap = {
-      preset = 'none',
-      ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-      ['<C-e>'] = { 'hide', 'fallback' },
-      ['<C-y>'] = { 'select_and_accept', 'fallback' },
+      preset = 'default',
+      ['<C-g>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      ['<C-e>'] = { 'hide' },
+      ['<C-y>'] = { 'select_and_accept' },
 
-      ['<Up>'] = { 'select_prev', 'fallback' },
-      ['<Down>'] = { 'select_next', 'fallback' },
-      ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-      ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+      ['<C-p>'] = { 'select_prev', 'fallback' },
+      ['<C-n>'] = { 'select_next', 'fallback' },
 
       ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
 
-      ['<Tab>'] = { 'snippet_forward', 'fallback' },
-      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-
-      ['<M-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+      ['<M-n>'] = { 'snippet_forward', 'fallback' },
+      ['<M-p>'] = { 'snippet_backward', 'fallback' },
     },
 
     -- Appearance configuration

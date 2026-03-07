@@ -4,6 +4,7 @@ return {
   -- Molten.nvim - Jupyter integration for Neovim
   {
     'benlubas/molten-nvim',
+    cond = vim.fn.has 'mac' == 1,
     version = '^1.0.0',
     dependencies = { '3rd/image.nvim' },
     build = ':UpdateRemotePlugins',
@@ -23,6 +24,7 @@ return {
   -- image.nvim - Image rendering for Neovim
   {
     '3rd/image.nvim',
+    cond = vim.fn.has 'mac' == 1,
     opts = {
       backend = 'kitty',
       integrations = {},

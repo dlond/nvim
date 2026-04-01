@@ -10,7 +10,7 @@ function M.setup()
     mappings = {
       enabled = true,
       cmdline = true,
-      disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
+      disable_filetypes = { 'TelescopePrompt', 'spectre_panel' },
     },
     highlights = {
       enabled = true,

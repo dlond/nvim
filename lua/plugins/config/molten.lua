@@ -1,8 +1,8 @@
 -- Molten (Jupyter) configuration
 local M = {}
 
-function M.setup()
-  -- Keybindings
+-- Keybindings
+local function setup_keymaps()
   local keymap = vim.keymap.set
 
   -- Basic operations
@@ -92,4 +92,3 @@ end
 M.setup()
 
 return M
-

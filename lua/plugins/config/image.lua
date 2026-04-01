@@ -11,11 +11,11 @@ function M.setup()
         clear_in_insert_mode = false,
         download_remote_images = true,
         only_render_image_at_cursor = false,
-        only_render_image_at_curser_mode = 'popup',
+        only_render_image_at_cursor_mode = 'popup',
         floating_windows = false,
         filetypes = { 'markdown', 'vimwiki' },
       },
-      neog = {
+      neorg = {
         enabled = true,
         filetypes = { 'norg' },
       },

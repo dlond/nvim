@@ -8,5 +8,5 @@ return {
   end,
   config = function()
     require('plugins.config.jupytext')
-  end
+  end,
 }

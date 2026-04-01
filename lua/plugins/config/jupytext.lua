@@ -45,9 +45,13 @@ function M.setup()
         -- Check if file has jupytext pairing metadata
         local first_lines = vim.api.nvim_buf_get_lines(bufnr, 0, 15, false)
         local has_pairing = false
-        
+        local saw_jupytext = false
+
         for _, line in ipairs(first_lines) do
-          if line:match("jupytext:") and line:match("formats:") then
+          if line:match("jupytext") then
+            saw_jupytext = true
+          end
+          if saw_jupytext and line:match("formats:") then
             has_pairing = true
             break
           end

@@ -10,7 +10,13 @@ function M.setup()
     mappings = {
       enabled = true,
       cmdline = true,
-      disable_filetypes = { 'TelescopePrompt', 'spectre_panel' },
+      disabled_filetypes = { 'TelescopePrompt', 'spectre_panel' },
+      wrap = {
+        ['<C-b>'] = 'motion',
+        ['<C-S-b>'] = 'motion_reverse',
+        ['<C-l>'] = 'treesitter',
+        ['<C-h>'] = 'treesitter_reverse',
+      },
     },
     highlights = {
       enabled = true,

@@ -12,15 +12,31 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+local lsp_augroup = vim.api.nvim_create_augroup('UserLspConfig', { clear = true })
+
 vim.api.nvim_create_autocmd('LspAttach', {
+  group = lsp_augroup,
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.server_capabilities.codeLensProvider then
-      vim.lsp.codelens.refresh()
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-        buffer = args.buf,
-        callback = vim.lsp.codelens.refresh,
-      })
+    if not client then
+      return
+    end
+
+    -- 1. CodeLens
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_codeLens) then
+      vim.lsp.codelens.enable(true, { bufnr = args.buf })
+    end
+
+    -- 2. Native Completion
+    if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    end
+
+    -- 3. Capability Overrides
+    if client.name == 'ruff' then
+      client.server_capabilities.hoverProvider = false
+      client.server_capabilities.definitionProvider = false
     end
   end,
 })

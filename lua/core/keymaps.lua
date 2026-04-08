@@ -10,24 +10,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- NOTE: Window navigation is handled by nvim-tmux-navigator plugin
 -- which provides seamless navigation between vim splits and tmux panes
 
--- LSP reload function
-local function reload_lsp()
-  local clients = vim.lsp.get_clients()
-  if #clients == 0 then
-    print 'No LSP clients running'
-    return
-  end
-
-  for _, client in ipairs(clients) do
-    vim.lsp.stop_client(client.id)
-  end
-
-  vim.defer_fn(function()
-    vim.cmd 'LspStart'
-    print 'LSP servers reloaded'
-  end, 500)
-end
-
 -- Buffer management keymaps
 vim.keymap.set('n', '<leader>bb', '<cmd>Telescope buffers<CR>', { desc = '[B]rowse [B]uffers' })
 vim.keymap.set('n', '[b', '<cmd>bprevious<CR>', { desc = 'Previous buffer' })
@@ -59,6 +41,31 @@ vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<CR>', { desc = 'Increa
 vim.keymap.set('n', '<leader>S', ':%s/<C-r><C-w>/', { desc = '[S]ubstitute current word' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Floating terminal
+local float_term = require('core.float_term')
+
+vim.keymap.set('n', '<leader>tf', function() float_term.open() end, { desc = '[T]erminal [F]loat' })
+vim.keymap.set('n', '<leader>tx', function() float_term.reset() end, { desc = '[T]erminal kill/reset' })
+vim.keymap.set('n', '<leader>tr', function()
+  vim.ui.input({ prompt = 'Run: ' }, function(input)
+    if input and input ~= '' then
+      float_term.open(input)
+    end
+  end)
+end, { desc = '[T]erminal [R]un command' })
+
+-- Code runner (auto-detects backend: cpp, python, etc.)
+local code = require('core.code')
+require('core.cpp_build') -- registers the cpp backend
+require('core.python_run') -- registers the python backend
+
+vim.keymap.set('n', '<leader>cc', function() code.go() end, { desc = '[C]ode [C]onfigure & run' })
+vim.keymap.set('n', '<leader>cb', function() code.build() end, { desc = '[C]ode [B]uild' })
+vim.keymap.set('n', '<leader>cr', function() code.run() end, { desc = '[C]ode [R]un' })
+vim.keymap.set('n', '<leader>ct', function() code.test() end, { desc = '[C]ode [T]est' })
+vim.keymap.set('n', '<leader>cs', function() code.status() end, { desc = '[C]ode [S]tatus' })
+vim.keymap.set('n', '<leader>cx', function() code.reset() end, { desc = '[C]ode reset' })
 
 -- Standard practice for Lua modules that don't need to return complex data
 return {}

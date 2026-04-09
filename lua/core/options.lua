@@ -61,4 +61,3 @@ vim.opt.scrolloff = 10
 
 -- Set the default boarder for all floating windows
 vim.opt.winborder = 'rounded'
-vim.o.autocomplete = true

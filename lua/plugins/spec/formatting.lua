@@ -26,6 +26,7 @@ return {
         python = { 'ruff_organize_imports', 'ruff_format', 'ruff_fix' },
         nix = { 'alejandra' },
         ocaml = { 'ocamlformat' },
+        rust = { 'rustfmt' },
 
         -- Shell scripts
         bash = { 'shfmt' },

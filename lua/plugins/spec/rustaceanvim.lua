@@ -1,10 +1,10 @@
 return {
-  'mrcjkb/rustaceanvim',
-  version = '^9',
-  lazy = false,
-  ['rust-analyzer'] = {
-    cargo = {
-      allFeatures = true,
-    },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^9',
+    lazy = false,
+    init = function()
+      require('plugins.config.rustaceanvim').init()
+    end,
   },
 }

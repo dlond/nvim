@@ -27,13 +27,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.codelens.enable(true, { bufnr = args.buf })
     end
 
-    -- 2. Native Completion
-    if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-    end
-
-    -- 3. Capability Overrides
+    -- 2. Capability Overrides
     if client.name == 'ruff' then
       client.server_capabilities.hoverProvider = false
       client.server_capabilities.definitionProvider = false

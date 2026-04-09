@@ -1,4 +1,4 @@
-return {
+config = {
   cmd = { 'cmake-language-server' },
   filetypes = { 'cmake' },
   root_markers = { 'CMakePresets.json', 'CTestConfig.cmake', '.git', 'build', 'cmake' },
@@ -6,3 +6,5 @@ return {
     buildDirectory = 'build',
   },
 }
+
+vim.lsp.config('cmake-language-server', config)

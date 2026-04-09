@@ -1,5 +1,4 @@
----@type vim.lsp.Config
-return {
+config = {
   cmd = { 'basedpyright-langserver', '--stdio' },
   filetypes = { 'python' },
   root_markers = {
@@ -22,3 +21,5 @@ return {
     },
   },
 }
+
+vim.lsp.config('basedpyright', config)

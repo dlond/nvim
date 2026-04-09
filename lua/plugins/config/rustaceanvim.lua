@@ -25,7 +25,7 @@ function M.init()
       end,
       default_settings = {
         ['rust-analyzer'] = {
-          checkOnSave = {
+          check = {
             command = 'clippy',
           },
           inlayHints = {

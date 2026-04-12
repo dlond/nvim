@@ -1,28 +1,11 @@
--- Bootstrap lazy.nvim
-require 'core.bootstrap'
+require("core.global")
+require("core.options")
+require("core.keymaps")
+require("core.autocmds")
+require("core.lsp")
 
-require 'core.global'
--- Core settings (must be before plugins)
-require 'core.options'
-require 'core.lsp'
-require 'core.keymaps'
-require 'core.autocmds'
-
-vim.env.DEVELOPER_DIR = '/Applications/Xcode.app/Contents/Developer'
-
--- Load plugins via lazy.nvim
-require('lazy').setup('plugins.spec', {
-  change_detection = { enabled = true, notify = false },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        'blink.cmp',
-        'gzip',
-        'tarPlugin',
-        'tohtml',
-        'tutor',
-        'zipPlugin',
-      },
-    },
-  },
-})
+require("plugins.colorscheme")
+require("plugins.treesitter")
+require("plugins.file-explorer")
+require("plugins.mini")
+require("plugins.which-key")

@@ -5,6 +5,10 @@
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
+    "nvim-dap": {
+      "rev": "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
+      "src": "https://codeberg.org/mfussenegger/nvim-dap.git"
+    },
     "nvim-lspconfig": {
       "rev": "cb5bc0b2b35a6d513e3298d285db81453e791f4f",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -17,6 +21,11 @@
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "rustaceanvim": {
+      "rev": "7b8dd7abb9a7f442b356aa03714aefce09610339",
+      "src": "https://github.com/mrcjkb/rustaceanvim",
+      "version": "9.0.0 - 10.0.0"
     },
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",

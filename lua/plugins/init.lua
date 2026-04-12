@@ -1,0 +1,4 @@
+require("plugins.spec.colorscheme")
+require("plugins.spec.treesitter")
+require("plugins.spec.file-explorer")
+require("plugins.spec.mini")

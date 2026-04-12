@@ -98,9 +98,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>ld", function() MiniExtra.pickers.lsp({ scope = 'definition' }) end, opts)
     vim.keymap.set("n", "<leader>lr", function() MiniExtra.pickers.lsp({ scope = 'references' }) end, opts)
     vim.keymap.set("n", "<leader>li", function() MiniExtra.pickers.lsp({ scope = 'implementation' }) end, opts)
+    vim.keymap.set("n", "<leader>lt", function() MiniExtra.pickers.lsp({ scope = 'type_definition' }) end, opts)
     vim.keymap.set("n", "<leader>ls", function() MiniExtra.pickers.lsp({ scope = 'document_symbol' }) end, opts)
     -- Diagnostic picker (Extra's version is often more feature-rich)
-    vim.keymap.set("n", "<leader>dd", function() MiniExtra.pickers.diag({ scope = 'all' }) end, opts)
+    vim.keymap.set("n", "<leader>dd", function() MiniExtra.pickers.diagnostic({ scope = 'all' }) end, opts)
 
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)

@@ -19,7 +19,9 @@ require("mini.surround").setup()
 require("mini.bracketed").setup()
 require("mini.pick").setup()
 require("mini.clue").setup(mini_config["clue"])
+require("mini.diff").setup()
+require("mini.git").setup()
 
 -- Appearance
 require("mini.icons").setup()
-require("mini.statusline").setup()
+require("mini.statusline").setup(mini_config["statusline"])

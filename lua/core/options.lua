@@ -1,6 +1,10 @@
 -- Load Nix-controlled settings if available
 pcall(require, "nix-settings")
 
+vim.g.python3_host_prog = "/Users/dlond/.local/share/python/base/.venv/bin/python"
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Set based on your font installation
 vim.g.have_nerd_font = true
 
@@ -60,3 +64,5 @@ vim.opt.scrolloff = 10
 -- Set the default boarder for all floating windows
 vim.opt.winborder = "rounded"
 
+vim.opt.complete = "o,.,w,b,u"
+vim.opt.completeopt = "menu,menuone,noinsert,fuzzy,popup"

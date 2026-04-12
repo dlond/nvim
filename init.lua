@@ -1,11 +1,2 @@
-require("core.global")
-require("core.options")
-require("core.keymaps")
-require("core.autocmds")
-require("core.lsp")
-
-require("plugins.colorscheme")
-require("plugins.treesitter")
-require("plugins.file-explorer")
-require("plugins.mini")
-require("plugins.which-key")
+require("core")
+require("plugins")

@@ -11,6 +11,7 @@ vim.g.rustaceanvim = {
     on_attach = function(_, bufnr)
       vim.keymap.set({ "n", "v"}, "<leader>ca", function() vim.cmd.RustLsp('codeAction') end, { buffer = bufnr })
       vim.keymap.set("n", "K", function() vim.cmd.RustLsp({'hover', 'actions'}) end, { buffer = bufnr })
+      vim.keymap.set("n", "<leader>dg", function() vim.cmd.RustLsp('debuggables') end, { buffer = bufnr, desc = "Start debugging" })
     end,
     default_settings = {
       ['rust-analyzer'] = {
@@ -18,6 +19,10 @@ vim.g.rustaceanvim = {
     },
   },
   dap = {
+    adapter = {
+      type = "executable",
+      command = vim.fn.exepath("lldb-dap"),
+    },
   },
 }
 

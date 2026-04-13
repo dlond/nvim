@@ -5,8 +5,6 @@ vim.pack.add({
   },
 })
 
-local mini_config = require("plugins.config.mini")
-
 require("mini.extra").setup()
 
 -- Text editing
